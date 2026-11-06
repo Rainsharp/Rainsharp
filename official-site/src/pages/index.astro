@@ -1,0 +1,32 @@
+---
+import { defaultLocale, locales, localeMeta } from '../i18n/config';
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WHALEOX</title>
+    <meta http-equiv="refresh" content={`0; url=/${defaultLocale}/`} />
+    <link rel="canonical" href={`https://whaleox.com/${defaultLocale}/`} />
+    {locales.map((l) => <link rel="alternate" hreflang={localeMeta[l].htmlLang} href={`https://whaleox.com/${l}/`} />)}
+    <script is:inline>
+      (function () {
+        var supported = ['fr', 'en', 'zh'];
+        var langs = navigator.languages || [navigator.language || ''];
+        for (var i = 0; i < langs.length; i++) {
+          var code = String(langs[i]).toLowerCase().slice(0, 2);
+          if (supported.indexOf(code) !== -1) {
+            location.replace('/' + code + '/');
+            return;
+          }
+        }
+        location.replace('/fr/');
+      })();
+    </script>
+  </head>
+  <body>
+    <p><a href="/fr/">Français</a> · <a href="/en/">English</a> · <a href="/zh/">简体中文</a></p>
+  </body>
+</html>

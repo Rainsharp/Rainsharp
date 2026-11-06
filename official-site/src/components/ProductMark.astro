@@ -1,0 +1,37 @@
+---
+import type { Product } from '../data/products';
+interface Props {
+  product: Product;
+  size?: 'sm' | 'md' | 'lg';
+  /** Background the mark sits on; picks the colour or white logo variant. */
+  tone?: 'light' | 'dark';
+}
+const { product, size = 'md', tone = 'light' } = Astro.props;
+const box = { sm: 'size-10 rounded-xl text-xs', md: 'size-14 rounded-2xl text-sm', lg: 'size-20 rounded-3xl text-lg' }[size];
+const pad = { sm: 'p-1.5', md: 'p-2', lg: 'p-3' }[size];
+const markSrc = product.logo ? (tone === 'dark' ? product.logo.mark.white : product.logo.mark.color) : null;
+---
+
+{
+  product.logo && markSrc ? (
+    <span
+      class:list={[
+        box,
+        pad,
+        'grid shrink-0 place-items-center',
+        tone === 'dark' ? 'bg-white/10 ring-1 ring-white/15' : 'bg-white shadow-md ring-1 ring-slate-200',
+      ]}
+    >
+      <img src={markSrc} alt={product.name} class="h-full w-full object-contain" loading="lazy" />
+    </span>
+  ) : product.icon ? (
+    <img src={product.icon} alt={product.name} class:list={[box, 'shrink-0 object-cover shadow-md ring-1 ring-black/5']} loading="lazy" />
+  ) : (
+    <span
+      class:list={[box, 'grid shrink-0 place-items-center bg-linear-to-br font-extrabold tracking-tight text-white shadow-md', product.accent]}
+      aria-label={product.name}
+    >
+      {product.mark ?? product.name.slice(0, 2)}
+    </span>
+  )
+}

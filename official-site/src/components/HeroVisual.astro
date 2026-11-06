@@ -1,0 +1,76 @@
+---
+import Icon from './Icon.astro';
+interface Props {
+  chips: { icon: string; name: string; label: string; pos: string }[];
+}
+const { chips } = Astro.props;
+---
+
+<div class="relative mx-auto aspect-[5/4] w-full max-w-xl" aria-hidden="true">
+  <svg viewBox="0 0 500 400" class="absolute inset-0 h-full w-full">
+    <defs>
+      <linearGradient id="road" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#1f2a5c" stop-opacity="0" />
+        <stop offset="1" stop-color="#1f2a5c" />
+      </linearGradient>
+      <linearGradient id="lane" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#9cc8ff" stop-opacity="0" />
+        <stop offset="1" stop-color="#9cc8ff" stop-opacity="0.9" />
+      </linearGradient>
+      <linearGradient id="canopy" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#4c7dff" />
+        <stop offset="1" stop-color="#8b6cff" />
+      </linearGradient>
+      <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+        <stop offset="0" stop-color="#5b5cf6" stop-opacity="0.55" />
+        <stop offset="1" stop-color="#5b5cf6" stop-opacity="0" />
+      </radialGradient>
+    </defs>
+    <ellipse cx="250" cy="190" rx="230" ry="150" fill="url(#glow)" />
+    <path d="M215 120 L285 120 L470 400 L30 400 Z" fill="url(#road)" />
+    <path d="M238 120 L160 400" stroke="url(#lane)" stroke-width="2" stroke-dasharray="14 12" />
+    <path d="M262 120 L340 400" stroke="url(#lane)" stroke-width="2" stroke-dasharray="14 12" />
+    <!-- toll canopy -->
+    <rect x="110" y="168" width="280" height="16" rx="4" fill="url(#canopy)" />
+    <rect x="110" y="184" width="280" height="3" fill="#060a1c" opacity="0.5" />
+    <rect x="128" y="186" width="8" height="70" fill="#334155" />
+    <rect x="246" y="186" width="8" height="70" fill="#334155" />
+    <rect x="364" y="186" width="8" height="70" fill="#334155" />
+    <!-- booths -->
+    <rect x="186" y="226" width="22" height="34" rx="3" fill="#141c45" stroke="#6fa8ff" stroke-opacity="0.6" />
+    <rect x="292" y="226" width="22" height="34" rx="3" fill="#141c45" stroke="#6fa8ff" stroke-opacity="0.6" />
+    <rect x="191" y="232" width="12" height="8" rx="1.5" fill="#9cc8ff" />
+    <rect x="297" y="232" width="12" height="8" rx="1.5" fill="#9cc8ff" />
+    <!-- barriers -->
+    <path d="M208 252 L246 246" stroke="#f7c948" stroke-width="4" stroke-linecap="round" />
+    <path d="M314 252 L344 222" stroke="#22c55e" stroke-width="4" stroke-linecap="round" />
+    <!-- solar -->
+    <g transform="translate(400 120)">
+      <path d="M0 40 L50 40 L60 10 L10 10 Z" fill="#1e3a8a" stroke="#6fa8ff" stroke-width="1.2" />
+      <path d="M17 10 L12 40 M27 10 L25 40 M37 10 L38 40 M47 10 L51 40 M5 25 L55 25" stroke="#6fa8ff" stroke-width="0.8" opacity="0.8" />
+      <rect x="28" y="40" width="4" height="22" fill="#334155" />
+    </g>
+    <circle cx="460" cy="70" r="16" fill="#f7c948" opacity="0.9" />
+    <!-- vehicle -->
+    <g transform="translate(310 300)">
+      <rect x="0" y="0" width="56" height="34" rx="8" fill="#e2e8f0" />
+      <rect x="6" y="5" width="44" height="12" rx="4" fill="#0b1230" opacity="0.85" />
+      <circle cx="12" cy="36" r="5" fill="#060a1c" />
+      <circle cx="44" cy="36" r="5" fill="#060a1c" />
+    </g>
+  </svg>
+
+  {
+    chips.map((c) => (
+      <div class:list={['absolute flex items-center gap-2.5 rounded-2xl border border-white/15 bg-ink-900/70 py-2 pr-4 pl-2 shadow-xl backdrop-blur-md', c.pos]}>
+        <span class="grid size-8 place-items-center rounded-xl bg-white/10 text-brand-300">
+          <Icon name={c.icon} class="size-4" />
+        </span>
+        <div class="leading-tight">
+          <p class="text-xs font-bold text-white">{c.name}</p>
+          <p class="text-[11px] text-slate-400">{c.label}</p>
+        </div>
+      </div>
+    ))
+  }
+</div>
