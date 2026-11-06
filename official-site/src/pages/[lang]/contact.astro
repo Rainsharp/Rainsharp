@@ -12,12 +12,13 @@ export function getStaticPaths() {
 const lang = Astro.params.lang as Locale;
 const d = t(lang);
 const c = d.contact;
-const details = [
-  { icon: 'mail', label: c.email, value: SITE.email, link: SITE.email && `mailto:${SITE.email}` },
-  { icon: 'phone', label: c.phone, value: SITE.phone, link: SITE.phone && `tel:${SITE.phone.replace(/\s/g, '')}` },
-  { icon: 'chat', label: c.whatsapp, value: SITE.whatsapp, link: SITE.whatsapp && `https://wa.me/${SITE.whatsapp.replace(/\D/g, '')}` },
-  { icon: 'pin', label: c.officeDrc, value: SITE.addressDrc, link: null },
-  { icon: 'pin', label: c.officeChina, value: SITE.addressChina, link: null },
+const details: { icon: string; label: string; value: string | null; link: string | null }[] = [
+  { icon: 'mail', label: c.email, value: SITE.email, link: `mailto:${SITE.email}` },
+  ...SITE.phones.map((p) => ({ icon: 'phone', label: c.phone, value: p.display, link: `tel:${p.tel}` })),
+  ...(SITE.whatsapp
+    ? [{ icon: 'chat', label: c.whatsapp, value: SITE.whatsapp, link: `https://wa.me/${SITE.whatsapp.replace(/\D/g, '')}` }]
+    : []),
+  ...SITE.offices[lang].map((o) => ({ icon: 'pin', label: o.label, value: o.address, link: null })),
 ];
 const field = 'w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-ink-900 placeholder:text-slate-400 focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 focus:outline-none';
 ---

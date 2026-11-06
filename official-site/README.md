@@ -24,7 +24,7 @@ npm run preview
 | Brand assets (WHALEOX + AEOMS from the previous site; official AGIOR / çavacash / IMARAPOWER; derived AGIORCLOUD / AGIORGO SVGs) | `public/brand/` |
 | Generator for the AGIORCLOUD / AGIORGO logos | `scripts/agior-family-logos.py` |
 
-Contact details are `null` in `src/data/site.ts` and render as "À confirmer / To be confirmed / 待确认" badges until filled in. Set `formEndpoint` to any service that accepts a `POST` of form data (Formspree, a Cloudflare Worker, etc.) to activate the contact form.
+Published contact details (email, both phone numbers, and the Dalian, Kinshasa and Lubumbashi offices) live in `src/data/site.ts`, with each office address written in Chinese, French and English. Set `formEndpoint` to any service that accepts a `POST` of form data (Formspree, a Cloudflare Worker, etc.) to activate the contact form; until then the form tells the visitor it is not connected.
 
 To add a language: add it to `locales` in `src/i18n/config.ts`, add a dictionary in `src/i18n/ui.ts`, and add a `copy.<lang>` entry for each product.
 
