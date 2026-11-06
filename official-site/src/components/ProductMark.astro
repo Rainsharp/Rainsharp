@@ -9,10 +9,11 @@ interface Props {
 const { product, size = 'md', tone = 'light' } = Astro.props;
 const box = { sm: 'size-10 rounded-xl text-xs', md: 'size-14 rounded-2xl text-sm', lg: 'size-20 rounded-3xl text-lg' }[size];
 const pad = { sm: 'p-1.5', md: 'p-2', lg: 'p-3' }[size];
+const markSrc = product.logo ? (tone === 'dark' ? product.logo.mark.white : product.logo.mark.color) : null;
 ---
 
 {
-  product.logo ? (
+  product.logo && markSrc ? (
     <span
       class:list={[
         box,
@@ -21,12 +22,7 @@ const pad = { sm: 'p-1.5', md: 'p-2', lg: 'p-3' }[size];
         tone === 'dark' ? 'bg-white/10 ring-1 ring-white/15' : 'bg-white shadow-md ring-1 ring-slate-200',
       ]}
     >
-      <img
-        src={tone === 'dark' ? product.logo.mark.white : product.logo.mark.color}
-        alt={product.name}
-        class="h-full w-full object-contain"
-        loading="lazy"
-      />
+      <img src={markSrc} alt={product.name} class="h-full w-full object-contain" loading="lazy" />
     </span>
   ) : product.icon ? (
     <img src={product.icon} alt={product.name} class:list={[box, 'shrink-0 object-cover shadow-md ring-1 ring-black/5']} loading="lazy" />

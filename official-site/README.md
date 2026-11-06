@@ -21,7 +21,7 @@ npm run preview
 | UI copy (all pages, 3 languages) | `src/i18n/ui.ts` |
 | Product content (3 languages) | `src/data/products.ts` |
 | Company contact details, form endpoint | `src/data/site.ts` |
-| Brand assets (WHALEOX logo + AEOMS icon from the previous site, official AGIOR logos, derived AGIORCLOUD / AGIORGO SVGs) | `public/brand/` |
+| Brand assets (WHALEOX + AEOMS from the previous site; official AGIOR / çavacash / IMARAPOWER; derived AGIORCLOUD / AGIORGO SVGs) | `public/brand/` |
 | Generator for the AGIORCLOUD / AGIORGO logos | `scripts/agior-family-logos.py` |
 
 Contact details are `null` in `src/data/site.ts` and render as "À confirmer / To be confirmed / 待确认" badges until filled in. Set `formEndpoint` to any service that accepts a `POST` of form data (Formspree, a Cloudflare Worker, etc.) to activate the contact form.

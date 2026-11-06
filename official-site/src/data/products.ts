@@ -30,6 +30,7 @@ export interface Product {
   logo?: {
     mark: { color: string; white: string; black: string };
     wordmark: { color: string; white: string; black: string };
+    lockup?: { color: string; white: string; black: string };
   };
   /** Two-letter monogram used when no icon exists. */
   mark?: string;
@@ -279,14 +280,14 @@ export const products: Product[] = [
           'Elle donne accès à un compte de passage prépayé pour franchir les postes de péage rapidement, sans ticket ni manipulation d’espèces.',
         ],
         features: [
-          { title: 'Compte prépayé', body: 'Un compte de passage personnel, adossé à CAVACASH.' },
+          { title: 'Compte prépayé', body: 'Un compte de passage personnel, adossé à çavacash.' },
           { title: 'Passage rapide', body: 'Moins d’attente au guichet grâce au débit automatique du compte.' },
           { title: 'Zéro papier', body: 'Plus de tickets papier ni d’espèces à manipuler.' },
           { title: 'iOS & Android', body: 'Disponible sur les deux principales plateformes mobiles.' },
         ],
         audiences: ['Conducteurs', 'Chauffeurs des entreprises de transport'],
         links: [
-          { slug: 'cavacash', note: 'Le compte prépayé est géré par CAVACASH.' },
+          { slug: 'cavacash', note: 'Le compte prépayé est géré par çavacash.' },
           { slug: 'agior', note: 'Le passage est validé par AGIOR en station.' },
         ],
         extra: { title: 'Téléchargement', items: ['App Store — lien à confirmer', 'Google Play — lien à confirmer'] },
@@ -300,14 +301,14 @@ export const products: Product[] = [
           'It gives drivers a prepaid passage account so they can cross toll stations quickly, without tickets or cash.',
         ],
         features: [
-          { title: 'Prepaid account', body: 'A personal passage account, backed by CAVACASH.' },
+          { title: 'Prepaid account', body: 'A personal passage account, backed by çavacash.' },
           { title: 'Fast passage', body: 'Shorter waits at the booth thanks to automatic account debit.' },
           { title: 'Paperless', body: 'No more paper tickets or cash handling.' },
           { title: 'iOS & Android', body: 'Available on both major mobile platforms.' },
         ],
         audiences: ['Drivers', 'Transport company drivers'],
         links: [
-          { slug: 'cavacash', note: 'The prepaid account is managed by CAVACASH.' },
+          { slug: 'cavacash', note: 'The prepaid account is managed by çavacash.' },
           { slug: 'agior', note: 'Passages are validated by AGIOR at the station.' },
         ],
         extra: { title: 'Download', items: ['App Store — link to be confirmed', 'Google Play — link to be confirmed'] },
@@ -321,14 +322,14 @@ export const products: Product[] = [
           '司机可开通预付通行账户，无需纸质票据和现金即可快速通过收费站。',
         ],
         features: [
-          { title: '预付通行账户', body: '基于 CAVACASH 的个人通行账户。' },
+          { title: '预付通行账户', body: '基于 çavacash 的个人通行账户。' },
           { title: '快速通行', body: '自动扣费，减少收费亭前的等待。' },
           { title: '无纸化', body: '告别纸质票据与现金找零。' },
           { title: 'iOS & Android', body: '覆盖两大主流移动平台。' },
         ],
         audiences: ['司机', '运输企业驾驶员'],
         links: [
-          { slug: 'cavacash', note: '预付账户由 CAVACASH 管理。' },
+          { slug: 'cavacash', note: '预付账户由 çavacash 管理。' },
           { slug: 'agior', note: '通行由收费站 AGIOR 校验放行。' },
         ],
         extra: { title: '下载', items: ['App Store — 链接待确认', 'Google Play — 链接待确认'] },
@@ -337,17 +338,21 @@ export const products: Product[] = [
   },
   {
     slug: 'cavacash',
-    mark: 'CC',
-    name: 'CAVACASH',
+    name: 'çavacash',
     layer: 'cloud',
-    accent: 'from-emerald-400 to-teal-600',
+    accent: 'from-sky-500 to-teal-400',
+    logo: {
+      mark: { color: '/brand/cavacash/cavacash-icon-color.png', white: '/brand/cavacash/cavacash-icon-white.png', black: '/brand/cavacash/cavacash-icon-black.png' },
+      wordmark: { color: '/brand/cavacash/cavacash-wordmark-color.png', white: '/brand/cavacash/cavacash-wordmark-white.png', black: '/brand/cavacash/cavacash-wordmark-black.png' },
+      lockup: { color: '/brand/cavacash/cavacash-lockup-color.png', white: '/brand/cavacash/cavacash-lockup-white.png', black: '/brand/cavacash/cavacash-lockup-black.png' },
+    },
     copy: {
       fr: {
         category: 'Comptes prépayés & flux financiers',
         tagline: 'Comptes prépayés, abonnements et flux de fonds — en partenariat avec les banques locales.',
         summary: 'Comptes prépayés, abonnements mensuels et gestion des flux de fonds pour concessionnaires et transporteurs.',
         overview: [
-          'CAVACASH fournit aux concessionnaires et aux entreprises de transport des comptes prépayés, des abonnements mensuels et des outils de gestion des flux de fonds.',
+          'çavacash fournit aux concessionnaires et aux entreprises de transport des comptes prépayés, des abonnements mensuels et des outils de gestion des flux de fonds.',
           'La plateforme est aujourd’hui en service pour le péage autoroutier. Elle a vocation à s’étendre à d’autres usages de monnaie électronique B2B.',
         ],
         features: [
@@ -363,8 +368,8 @@ export const products: Product[] = [
           { slug: 'agior', note: 'Les passages sont débités en station par AGIOR.' },
         ],
         callout: {
-          title: 'CAVACASH n’est pas un établissement financier',
-          body: 'Les fonds des comptes sont détenus par des banques locales partenaires, qui assurent également la compensation secondaire. CAVACASH gère uniquement les flux de fonds en ligne.',
+          title: 'çavacash n’est pas un établissement financier',
+          body: 'Les fonds des comptes sont détenus par des banques locales partenaires, qui assurent également la compensation secondaire. çavacash gère uniquement les flux de fonds en ligne.',
         },
         extra: {
           title: 'Usages',
@@ -376,7 +381,7 @@ export const products: Product[] = [
         tagline: 'Prepaid accounts, monthly passes and fund flows — in partnership with local banks.',
         summary: 'Prepaid accounts, monthly passes and fund-flow management for concessionaires and transport companies.',
         overview: [
-          'CAVACASH gives concessionaires and transport companies prepaid accounts, monthly passes and fund-flow management tools.',
+          'çavacash gives concessionaires and transport companies prepaid accounts, monthly passes and fund-flow management tools.',
           'The platform is live today for highway tolls and is designed to extend to other B2B e-cash use cases.',
         ],
         features: [
@@ -392,8 +397,8 @@ export const products: Product[] = [
           { slug: 'agior', note: 'Passages are debited at the station by AGIOR.' },
         ],
         callout: {
-          title: 'CAVACASH is not a financial institution',
-          body: 'Account funds are held by local partner banks, which also perform secondary clearing. CAVACASH only manages the online fund flows.',
+          title: 'çavacash is not a financial institution',
+          body: 'Account funds are held by local partner banks, which also perform secondary clearing. çavacash only manages the online fund flows.',
         },
         extra: {
           title: 'Use cases',
@@ -405,7 +410,7 @@ export const products: Product[] = [
         tagline: '预付账户、月票与资金流管理——与本地银行合作。',
         summary: '为特许经营方与运输企业提供预付账户、月票及资金流管理。',
         overview: [
-          'CAVACASH 为特许经营方和运输企业提供预付账户、月票以及资金流管理工具。',
+          'çavacash 为特许经营方和运输企业提供预付账户、月票以及资金流管理工具。',
           '平台目前已在高速公路收费场景上线，未来将拓展至更多 B2B 电子现金场景。',
         ],
         features: [
@@ -421,8 +426,8 @@ export const products: Product[] = [
           { slug: 'agior', note: '收费站 AGIOR 完成通行扣费。' },
         ],
         callout: {
-          title: 'CAVACASH 本身不是金融机构',
-          body: '账户资金由本地合作银行存管，并由银行负责二级清算；CAVACASH 平台仅负责线上资金流的管理。',
+          title: 'çavacash 本身不是金融机构',
+          body: '账户资金由本地合作银行存管，并由银行负责二级清算；çavacash 平台仅负责线上资金流的管理。',
         },
         extra: {
           title: '应用场景',
@@ -433,10 +438,14 @@ export const products: Product[] = [
   },
   {
     slug: 'imarapower',
-    mark: 'IP',
     name: 'IMARAPOWER',
     layer: 'station',
-    accent: 'from-amber-400 to-orange-500',
+    accent: 'from-orange-400 to-amber-500',
+    logo: {
+      mark: { color: '/brand/imarapower/imarapower-icon-color.png', white: '/brand/imarapower/imarapower-icon-white.png', black: '/brand/imarapower/imarapower-icon-black.png' },
+      wordmark: { color: '/brand/imarapower/imarapower-wordmark-teal.png', white: '/brand/imarapower/imarapower-wordmark-white.png', black: '/brand/imarapower/imarapower-wordmark-black.png' },
+      lockup: { color: '/brand/imarapower/imarapower-lockup-color.png', white: '/brand/imarapower/imarapower-lockup-white.png', black: '/brand/imarapower/imarapower-lockup-black.png' },
+    },
     copy: {
       fr: {
         category: 'Stockage d’énergie intelligent',
