@@ -41,10 +41,18 @@ const others = products.filter((p) => p.slug !== product.slug);
       <div class="mt-8 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
         <div class="max-w-3xl">
           <div class="flex items-center gap-4">
-            <ProductMark product={product} size="lg" />
+            <ProductMark product={product} size="lg" tone="dark" />
             <div>
               <p class="eyebrow !text-brand-300">{c.category}</p>
-              <h1 class="mt-1 text-4xl font-extrabold !text-white sm:text-5xl">{product.name}</h1>
+              {
+                product.logo ? (
+                  <h1 class="mt-3">
+                    <img src={product.logo.wordmark.white} alt={product.name} class="h-8 w-auto sm:h-10" />
+                  </h1>
+                ) : (
+                  <h1 class="mt-1 text-4xl font-extrabold !text-white sm:text-5xl">{product.name}</h1>
+                )
+              }
             </div>
           </div>
           <p class="mt-6 text-xl leading-relaxed text-slate-200 sm:text-2xl">{c.tagline}</p>

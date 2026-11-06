@@ -26,6 +26,11 @@ export interface Product {
   layer: 'station' | 'cloud' | 'users';
   /** Real product icon from the previous site, if one exists. */
   icon?: string;
+  /** Official logo set: mark + wordmark in tones for light and dark backgrounds. */
+  logo?: {
+    mark: { color: string; white: string; black: string };
+    wordmark: { color: string; white: string; black: string };
+  };
   /** Two-letter monogram used when no icon exists. */
   mark?: string;
   /** Tailwind gradient classes used for the monogram tile and accents. */
@@ -107,7 +112,10 @@ export const products: Product[] = [
     slug: 'agior',
     name: 'AGIOR',
     layer: 'station',
-    icon: '/brand/agior-icon.png',
+    logo: {
+      mark: { color: '/brand/agior/agior-mark-color.png', white: '/brand/agior/agior-mark-white.png', black: '/brand/agior/agior-mark-black.png' },
+      wordmark: { color: '/brand/agior/agior-wordmark-navy.png', white: '/brand/agior/agior-wordmark-white.png', black: '/brand/agior/agior-wordmark-black.png' },
+    },
     accent: 'from-blue-600 to-indigo-700',
     copy: {
       fr: {
@@ -178,6 +186,10 @@ export const products: Product[] = [
   {
     slug: 'agiorcloud',
     mark: 'AC',
+    logo: {
+      mark: { color: '/brand/agiorcloud/agiorcloud-mark-color.svg', white: '/brand/agiorcloud/agiorcloud-mark-white.svg', black: '/brand/agiorcloud/agiorcloud-mark-black.svg' },
+      wordmark: { color: '/brand/agiorcloud/agiorcloud-wordmark-color.svg', white: '/brand/agiorcloud/agiorcloud-wordmark-white.svg', black: '/brand/agiorcloud/agiorcloud-wordmark-black.svg' },
+    },
     name: 'AGIORCLOUD',
     layer: 'cloud',
     accent: 'from-indigo-500 to-violet-600',
@@ -250,6 +262,10 @@ export const products: Product[] = [
   {
     slug: 'agiorgo',
     mark: 'GO',
+    logo: {
+      mark: { color: '/brand/agiorgo/agiorgo-mark-color.svg', white: '/brand/agiorgo/agiorgo-mark-white.svg', black: '/brand/agiorgo/agiorgo-mark-black.svg' },
+      wordmark: { color: '/brand/agiorgo/agiorgo-wordmark-color.svg', white: '/brand/agiorgo/agiorgo-wordmark-white.svg', black: '/brand/agiorgo/agiorgo-wordmark-black.svg' },
+    },
     name: 'AGIORGO',
     layer: 'users',
     accent: 'from-cyan-400 to-blue-600',

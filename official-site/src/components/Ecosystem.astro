@@ -38,7 +38,7 @@ const go = node('agiorgo');
       </header>
 
       <a href={imara.url} class="group flex items-center gap-3 rounded-2xl border border-white/10 bg-ink-800/80 p-3 transition hover:border-amber-300/60">
-        <ProductMark product={imara.p} size="sm" />
+        <ProductMark product={imara.p} size="sm" tone="dark" />
         <div class="min-w-0">
           <p class="text-sm font-bold text-white">{imara.p.name}</p>
           <p class="truncate text-xs text-slate-400">{imara.c.category}</p>
@@ -50,7 +50,7 @@ const go = node('agiorgo');
       <div class="rounded-2xl border border-white/10 bg-ink-800/80 p-3">
         <div class="grid gap-2">
           <a href={aeoms.url} class="flex items-center gap-3 rounded-xl p-1 transition hover:bg-white/5">
-            <ProductMark product={aeoms.p} size="sm" />
+            <ProductMark product={aeoms.p} size="sm" tone="dark" />
             <div class="min-w-0">
               <p class="text-sm font-bold text-white">{aeoms.p.name}</p>
               <p class="truncate text-xs text-slate-400">{aeoms.c.category}</p>
@@ -60,7 +60,7 @@ const go = node('agiorgo');
             <span class="h-px w-4 bg-brand-300/60"></span>{d.flowRuns}
           </div>
           <a href={agior.url} class="flex items-center gap-3 rounded-xl p-1 transition hover:bg-white/5">
-            <ProductMark product={agior.p} size="sm" />
+            <ProductMark product={agior.p} size="sm" tone="dark" />
             <div class="min-w-0">
               <p class="text-sm font-bold text-white">{agior.p.name}</p>
               <p class="truncate text-xs text-slate-400">{agior.c.category}</p>
@@ -89,7 +89,7 @@ const go = node('agiorgo');
         {
           [cloud, cava].map((n) => (
             <a href={n.url} class="flex items-center gap-3 rounded-2xl border border-white/10 bg-ink-800/80 p-3 transition hover:border-brand-300/60">
-              <ProductMark product={n.p} size="sm" />
+              <ProductMark product={n.p} size="sm" tone="dark" />
               <div class="min-w-0">
                 <p class="text-sm font-bold text-white">{n.p.name}</p>
                 <p class="truncate text-xs text-slate-400">{n.c.category}</p>
@@ -131,7 +131,7 @@ const go = node('agiorgo');
         <div class="rounded-2xl border border-white/10 bg-ink-800/80 p-3">
           <div class="flex items-center gap-3 text-sm font-semibold text-white"><Icon name="phoneApp" class="size-4 text-slate-400" />{d.userDrivers}</div>
           <a href={go.url} class="mt-3 flex items-center gap-3 rounded-xl p-1 transition hover:bg-white/5">
-            <ProductMark product={go.p} size="sm" />
+            <ProductMark product={go.p} size="sm" tone="dark" />
             <div class="min-w-0">
               <p class="text-sm font-bold text-white">{go.p.name}</p>
               <p class="truncate text-xs text-slate-400">{go.c.category}</p>
