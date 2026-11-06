@@ -1,0 +1,97 @@
+---
+import Base from '../../layouts/Base.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import ProductMark from '../../components/ProductMark.astro';
+import Icon from '../../components/Icon.astro';
+import { href, locales, type Locale } from '../../i18n/config';
+import { t } from '../../i18n/ui';
+import { products } from '../../data/products';
+
+export function getStaticPaths() {
+  return locales.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Locale;
+const d = t(lang);
+const a = d.about;
+---
+
+<Base lang={lang} title={d.nav.about} description={a.lead}>
+  <section class="relative overflow-hidden bg-ink-950 text-slate-300">
+    <div class="grid-bg pointer-events-none absolute inset-0"></div>
+    <div class="pointer-events-none absolute -top-40 right-0 size-[30rem] rounded-full bg-violet-brand/25 blur-3xl"></div>
+    <div class="container-x relative py-20 lg:py-28">
+      <p class="eyebrow !text-brand-300">{a.eyebrow}</p>
+      <h1 class="mt-4 max-w-4xl text-4xl leading-tight font-extrabold !text-white sm:text-5xl">{a.title}</h1>
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-slate-300">{a.lead}</p>
+    </div>
+  </section>
+
+  <section class="py-16 sm:py-24">
+    <div class="container-x grid gap-12 lg:grid-cols-[1.3fr_1fr]">
+      <div class="reveal space-y-5 text-lg leading-relaxed text-slate-700">
+        {a.body.map((p) => <p>{p}</p>)}
+        <div class="mt-8 rounded-3xl bg-linear-to-br from-brand-500 to-violet-brand p-8 text-white">
+          <p class="text-xs font-semibold tracking-[0.18em] uppercase opacity-80">{a.missionTitle}</p>
+          <p class="mt-3 text-xl leading-relaxed font-semibold sm:text-2xl">{a.mission}</p>
+        </div>
+      </div>
+      <div class="reveal space-y-6">
+        <div class="rounded-3xl border border-slate-200 p-6">
+          <p class="eyebrow">{a.factsTitle}</p>
+          <dl class="mt-4 divide-y divide-slate-100">
+            {
+              a.facts.map((f) => (
+                <div class="flex items-start justify-between gap-4 py-3 text-sm">
+                  <dt class="text-slate-500">{f.label}</dt>
+                  <dd class="text-right font-medium text-ink-900">{f.value ?? <span class="tbc">{d.common.tbc}</span>}</dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          {
+            d.home.stats.slice(0, 2).map((s) => (
+              <div class="rounded-3xl bg-slate-50 p-6">
+                <p class="text-4xl font-extrabold text-brand-600">{s.value}</p>
+                <p class="mt-1 text-sm text-slate-600">{s.label}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-slate-50 py-16 sm:py-24">
+    <div class="container-x">
+      <p class="eyebrow reveal">{a.focusTitle}</p>
+      <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          a.focus.map((f, i) => (
+            <div class="reveal flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-5">
+              <span class="grid size-10 shrink-0 place-items-center rounded-xl bg-brand-500/10 text-brand-600">
+                <Icon name={['barrier', 'truck', 'wallet', 'sun'][i]} />
+              </span>
+              <p class="font-semibold text-ink-900">{f}</p>
+            </div>
+          ))
+        }
+      </div>
+      <div class="mt-12 flex flex-wrap gap-2">
+        {
+          products.map((p) => (
+            <a href={href(lang, `products/${p.slug}`)} class="flex items-center gap-2 rounded-full border border-slate-200 bg-white py-1.5 pr-4 pl-1.5 text-sm font-semibold text-ink-900 hover:border-brand-400 hover:text-brand-600">
+              <ProductMark product={p} size="sm" />
+              {p.name}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <div class="pt-20"></div>
+  <CtaBand lang={lang} title={d.home.ctaTitle} body={d.home.ctaBody} />
+</Base>

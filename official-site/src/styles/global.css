@@ -1,0 +1,86 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/inter';
+
+@theme {
+  --font-sans: 'Inter Variable', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', 'Microsoft YaHei', system-ui, sans-serif;
+  --color-ink-950: #060a1c;
+  --color-ink-900: #0b1230;
+  --color-ink-800: #141c45;
+  --color-ink-700: #1f2a5c;
+  --color-brand-300: #9cc8ff;
+  --color-brand-400: #6fa8ff;
+  --color-brand-500: #4c7dff;
+  --color-brand-600: #5b5cf6;
+  --color-violet-brand: #8b6cff;
+  --color-congo-sky: #0ea5e9;
+  --color-congo-gold: #f7c948;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    @apply bg-white text-slate-700;
+  }
+  h1, h2, h3, h4 {
+    @apply text-ink-900 tracking-tight;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-500;
+  }
+}
+
+@utility container-x {
+  @apply mx-auto w-full max-w-7xl px-5 sm:px-8;
+}
+
+@utility text-gradient {
+  @apply bg-linear-to-r from-brand-300 via-brand-400 to-violet-brand bg-clip-text text-transparent;
+}
+
+@utility eyebrow {
+  @apply text-xs font-semibold tracking-[0.18em] uppercase text-brand-600;
+}
+
+@utility grid-bg {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition;
+}
+@utility btn-primary {
+  @apply btn bg-linear-to-r from-brand-500 to-violet-brand text-white shadow-lg shadow-brand-600/25 hover:brightness-110;
+}
+@utility btn-ghost-dark {
+  @apply btn border border-white/20 bg-white/5 text-white hover:bg-white/10;
+}
+@utility btn-ghost {
+  @apply btn border border-slate-200 bg-white text-ink-900 hover:border-brand-400 hover:text-brand-600;
+}
+
+@utility tbc {
+  @apply inline-flex items-center gap-1 rounded-md border border-dashed border-amber-400 bg-amber-50 px-2 py-0.5 text-xs font-medium text-amber-700;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

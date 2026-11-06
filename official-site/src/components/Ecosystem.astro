@@ -1,0 +1,144 @@
+---
+import { href, type Locale } from '../i18n/config';
+import { t } from '../i18n/ui';
+import { getProduct, type ProductSlug } from '../data/products';
+import ProductMark from './ProductMark.astro';
+import Icon from './Icon.astro';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const d = t(lang).home;
+const node = (slug: ProductSlug) => {
+  const p = getProduct(slug);
+  return { p, url: href(lang, `products/${slug}`), c: p.copy[lang] };
+};
+const imara = node('imarapower');
+const aeoms = node('aeoms');
+const agior = node('agior');
+const cloud = node('agiorcloud');
+const cava = node('cavacash');
+const go = node('agiorgo');
+---
+
+<div class="relative overflow-hidden rounded-[2rem] bg-ink-900 p-4 text-slate-300 shadow-2xl shadow-ink-900/30 sm:p-8 lg:p-10">
+  <div class="grid-bg pointer-events-none absolute inset-0 opacity-60"></div>
+  <div class="pointer-events-none absolute -top-32 left-1/3 size-96 rounded-full bg-brand-600/30 blur-3xl"></div>
+
+  <div class="relative grid items-stretch gap-3 lg:grid-cols-[1fr_auto_1fr_auto_1fr] lg:gap-0">
+    <!-- Station layer -->
+    <section class="rounded-3xl border border-white/10 bg-white/[0.04] p-5">
+      <header class="mb-4 flex items-center gap-3">
+        <span class="grid size-9 place-items-center rounded-xl bg-amber-400/15 text-amber-300"><Icon name="barrier" /></span>
+        <div>
+          <h3 class="text-sm font-semibold !text-white">{d.layerStation}</h3>
+          <p class="text-xs text-slate-400">{d.layerStationSub}</p>
+        </div>
+      </header>
+
+      <a href={imara.url} class="group flex items-center gap-3 rounded-2xl border border-white/10 bg-ink-800/80 p-3 transition hover:border-amber-300/60">
+        <ProductMark product={imara.p} size="sm" />
+        <div class="min-w-0">
+          <p class="text-sm font-bold text-white">{imara.p.name}</p>
+          <p class="truncate text-xs text-slate-400">{imara.c.category}</p>
+        </div>
+      </a>
+      <div class="flex items-center gap-2 py-2 pl-7 text-[11px] font-medium tracking-wide text-amber-300/90 uppercase">
+        <Icon name="bolt" class="size-3.5" />{d.flowPowers}
+      </div>
+      <div class="rounded-2xl border border-white/10 bg-ink-800/80 p-3">
+        <div class="grid gap-2">
+          <a href={aeoms.url} class="flex items-center gap-3 rounded-xl p-1 transition hover:bg-white/5">
+            <ProductMark product={aeoms.p} size="sm" />
+            <div class="min-w-0">
+              <p class="text-sm font-bold text-white">{aeoms.p.name}</p>
+              <p class="truncate text-xs text-slate-400">{aeoms.c.category}</p>
+            </div>
+          </a>
+          <div class="flex items-center gap-2 pl-4 text-[11px] font-medium tracking-wide text-brand-300 uppercase">
+            <span class="h-px w-4 bg-brand-300/60"></span>{d.flowRuns}
+          </div>
+          <a href={agior.url} class="flex items-center gap-3 rounded-xl p-1 transition hover:bg-white/5">
+            <ProductMark product={agior.p} size="sm" />
+            <div class="min-w-0">
+              <p class="text-sm font-bold text-white">{agior.p.name}</p>
+              <p class="truncate text-xs text-slate-400">{agior.c.category}</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <div class="flex items-center justify-center py-1 lg:w-24 lg:flex-col lg:py-0" aria-hidden="true">
+      <span class="h-6 w-px bg-linear-to-b from-brand-400/0 via-brand-400 to-brand-400/0 lg:h-px lg:w-full lg:bg-linear-to-r"></span>
+      <span class="mx-2 rounded-full border border-brand-400/40 bg-ink-900 px-2.5 py-1 text-[10px] font-semibold tracking-wider whitespace-nowrap text-brand-300 uppercase lg:mx-0 lg:my-2">⇄ {d.flowSyncs}</span>
+      <span class="h-6 w-px bg-linear-to-b from-brand-400/0 via-brand-400 to-brand-400/0 lg:h-px lg:w-full lg:bg-linear-to-r"></span>
+    </div>
+
+    <!-- Cloud layer -->
+    <section class="rounded-3xl border border-brand-400/30 bg-linear-to-b from-brand-600/20 to-white/[0.03] p-5">
+      <header class="mb-4 flex items-center gap-3">
+        <span class="grid size-9 place-items-center rounded-xl bg-brand-500/20 text-brand-300"><Icon name="cloud" /></span>
+        <div>
+          <h3 class="text-sm font-semibold !text-white">{d.layerCloud}</h3>
+          <p class="text-xs text-slate-400">{d.layerCloudSub}</p>
+        </div>
+      </header>
+      <div class="grid gap-3">
+        {
+          [cloud, cava].map((n) => (
+            <a href={n.url} class="flex items-center gap-3 rounded-2xl border border-white/10 bg-ink-800/80 p-3 transition hover:border-brand-300/60">
+              <ProductMark product={n.p} size="sm" />
+              <div class="min-w-0">
+                <p class="text-sm font-bold text-white">{n.p.name}</p>
+                <p class="truncate text-xs text-slate-400">{n.c.category}</p>
+              </div>
+            </a>
+          ))
+        }
+        <div class="flex items-start gap-3 rounded-2xl border border-dashed border-emerald-300/40 p-3">
+          <span class="grid size-10 shrink-0 place-items-center rounded-xl bg-emerald-400/10 text-emerald-300"><Icon name="bank" /></span>
+          <div>
+            <p class="text-sm font-semibold text-white">{d.banks}</p>
+            <p class="text-xs leading-snug text-slate-400">{d.banksSub}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="flex items-center justify-center py-1 lg:w-24 lg:flex-col lg:py-0" aria-hidden="true">
+      <span class="h-6 w-px bg-linear-to-b from-violet-brand/0 via-violet-brand to-violet-brand/0 lg:h-px lg:w-full lg:bg-linear-to-r"></span>
+      <span class="mx-2 rounded-full border border-violet-brand/40 bg-ink-900 px-2.5 py-1 text-[10px] font-semibold tracking-wider whitespace-nowrap text-violet-300 uppercase lg:mx-0 lg:my-2">⇄ {d.flowPays}</span>
+      <span class="h-6 w-px bg-linear-to-b from-violet-brand/0 via-violet-brand to-violet-brand/0 lg:h-px lg:w-full lg:bg-linear-to-r"></span>
+    </div>
+
+    <!-- Users layer -->
+    <section class="rounded-3xl border border-white/10 bg-white/[0.04] p-5">
+      <header class="mb-4 flex items-center gap-3">
+        <span class="grid size-9 place-items-center rounded-xl bg-violet-500/20 text-violet-300"><Icon name="user" /></span>
+        <div>
+          <h3 class="text-sm font-semibold !text-white">{d.layerUsers}</h3>
+          <p class="text-xs text-slate-400">{d.layerUsersSub}</p>
+        </div>
+      </header>
+      <div class="grid gap-3">
+        <div class="rounded-2xl border border-white/10 bg-ink-800/80 p-3">
+          <div class="flex items-center gap-3 text-sm font-semibold text-white"><Icon name="building" class="size-4 text-slate-400" />{d.userOperators}</div>
+          <div class="mt-2 flex items-center gap-3 text-sm font-semibold text-white"><Icon name="truck" class="size-4 text-slate-400" />{d.userCompanies}</div>
+          <p class="mt-2 text-xs text-slate-400">via <a href={cloud.url} class="font-semibold text-brand-300 hover:underline">AGIORCLOUD</a> · <a href={cava.url} class="font-semibold text-brand-300 hover:underline">CAVACASH</a></p>
+        </div>
+        <div class="rounded-2xl border border-white/10 bg-ink-800/80 p-3">
+          <div class="flex items-center gap-3 text-sm font-semibold text-white"><Icon name="phoneApp" class="size-4 text-slate-400" />{d.userDrivers}</div>
+          <a href={go.url} class="mt-3 flex items-center gap-3 rounded-xl p-1 transition hover:bg-white/5">
+            <ProductMark product={go.p} size="sm" />
+            <div class="min-w-0">
+              <p class="text-sm font-bold text-white">{go.p.name}</p>
+              <p class="truncate text-xs text-slate-400">{go.c.category}</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

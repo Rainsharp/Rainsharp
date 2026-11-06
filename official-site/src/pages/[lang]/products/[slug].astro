@@ -1,0 +1,161 @@
+---
+import Base from '../../../layouts/Base.astro';
+import ProductMark from '../../../components/ProductMark.astro';
+import CtaBand from '../../../components/CtaBand.astro';
+import Icon from '../../../components/Icon.astro';
+import { href, locales, type Locale } from '../../../i18n/config';
+import { t } from '../../../i18n/ui';
+import { getProduct, products, type ProductSlug } from '../../../data/products';
+
+export function getStaticPaths() {
+  return locales.flatMap((lang) => products.map((p) => ({ params: { lang, slug: p.slug } })));
+}
+
+const lang = Astro.params.lang as Locale;
+const product = getProduct(Astro.params.slug as ProductSlug);
+const c = product.copy[lang];
+const d = t(lang);
+const featureIcons: Record<ProductSlug, string[]> = {
+  aeoms: ['terminal', 'server', 'barrier', 'layers'],
+  agior: ['barrier', 'truck', 'search', 'server'],
+  agiorcloud: ['building', 'search', 'layers', 'chart'],
+  agiorgo: ['wallet', 'bolt', 'paper', 'phoneApp'],
+  cavacash: ['wallet', 'paper', 'chart', 'truck'],
+  imarapower: ['bolt', 'sensor', 'chart', 'leaf'],
+};
+const others = products.filter((p) => p.slug !== product.slug);
+---
+
+<Base lang={lang} title={`${product.name} — ${c.category}`} description={c.summary}>
+  <section class="relative overflow-hidden bg-ink-950 text-slate-300">
+    <div class="grid-bg pointer-events-none absolute inset-0"></div>
+    <div class:list={['pointer-events-none absolute -top-48 right-[-10%] size-[34rem] rounded-full bg-linear-to-br opacity-30 blur-3xl', product.accent]}></div>
+    <div class="container-x relative py-16 lg:py-24">
+      <nav class="text-xs text-slate-400" aria-label="Breadcrumb">
+        <a href={href(lang)} class="hover:text-white">{d.nav.home}</a>
+        <span class="mx-2">/</span>
+        <span>{d.nav.products}</span>
+        <span class="mx-2">/</span>
+        <span class="text-white">{product.name}</span>
+      </nav>
+      <div class="mt-8 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+        <div class="max-w-3xl">
+          <div class="flex items-center gap-4">
+            <ProductMark product={product} size="lg" />
+            <div>
+              <p class="eyebrow !text-brand-300">{c.category}</p>
+              <h1 class="mt-1 text-4xl font-extrabold !text-white sm:text-5xl">{product.name}</h1>
+            </div>
+          </div>
+          <p class="mt-6 text-xl leading-relaxed text-slate-200 sm:text-2xl">{c.tagline}</p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <a href={href(lang, 'contact')} class="btn-primary">{d.nav.cta}<Icon name="arrow" class="size-4" /></a>
+          <a href={href(lang) + '#ecosystem'} class="btn-ghost-dark">{d.nav.ecosystem}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 sm:py-24">
+    <div class="container-x grid gap-12 lg:grid-cols-[1.2fr_1fr]">
+      <div class="reveal">
+        <p class="eyebrow">{d.product.overview}</p>
+        <div class="mt-4 space-y-4 text-lg leading-relaxed text-slate-700">
+          {c.overview.map((p) => <p>{p}</p>)}
+        </div>
+        {
+          c.callout && (
+            <aside class="mt-8 flex gap-4 rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
+              <span class="grid size-10 shrink-0 place-items-center rounded-xl bg-white text-emerald-600 shadow-sm">
+                <Icon name="bank" />
+              </span>
+              <div>
+                <h2 class="font-semibold !text-emerald-900">{c.callout.title}</h2>
+                <p class="mt-1 text-sm leading-relaxed text-emerald-800">{c.callout.body}</p>
+              </div>
+            </aside>
+          )
+        }
+      </div>
+      <div class="reveal space-y-6">
+        <div class="rounded-3xl border border-slate-200 p-6">
+          <p class="eyebrow">{d.product.forWhom}</p>
+          <ul class="mt-4 flex flex-wrap gap-2">
+            {c.audiences.map((a) => <li class="rounded-full bg-slate-100 px-3 py-1.5 text-sm font-medium text-ink-900">{a}</li>)}
+          </ul>
+        </div>
+        {
+          c.extra && (
+            <div class="rounded-3xl border border-slate-200 p-6">
+              <p class="eyebrow">{c.extra.title}</p>
+              <ul class="mt-4 space-y-2.5">
+                {c.extra.items.map((i) => (
+                  <li class="flex items-start gap-2.5 text-sm text-slate-700">
+                    <Icon name="check" class="mt-0.5 size-4 shrink-0 text-brand-600" />
+                    {i}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-slate-50 py-16 sm:py-24">
+    <div class="container-x">
+      <p class="eyebrow reveal">{d.product.features}</p>
+      <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          c.features.map((f, i) => (
+            <div class="reveal rounded-3xl border border-slate-200 bg-white p-6">
+              <span class:list={['grid size-11 place-items-center rounded-2xl bg-linear-to-br text-white shadow-md', product.accent]}>
+                <Icon name={featureIcons[product.slug][i]} />
+              </span>
+              <h3 class="mt-5 font-semibold">{f.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">{f.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 sm:py-24">
+    <div class="container-x">
+      <p class="eyebrow reveal">{d.product.ecosystem}</p>
+      <div class="mt-8 grid gap-4 md:grid-cols-3">
+        {
+          c.links.map((l) => {
+            const p = getProduct(l.slug);
+            return (
+              <a href={href(lang, `products/${p.slug}`)} class="reveal group flex items-start gap-4 rounded-3xl border border-slate-200 p-5 transition hover:border-brand-300 hover:shadow-lg">
+                <ProductMark product={p} size="sm" />
+                <div>
+                  <p class="font-bold text-ink-900 group-hover:text-brand-600">{p.name}</p>
+                  <p class="mt-1 text-sm text-slate-600">{l.note}</p>
+                </div>
+              </a>
+            );
+          })
+        }
+      </div>
+
+      <p class="eyebrow mt-16">{d.common.allProducts}</p>
+      <div class="mt-6 flex flex-wrap gap-2">
+        {
+          others.map((p) => (
+            <a href={href(lang, `products/${p.slug}`)} class="flex items-center gap-2 rounded-full border border-slate-200 py-1.5 pr-4 pl-1.5 text-sm font-semibold text-ink-900 hover:border-brand-400 hover:text-brand-600">
+              <ProductMark product={p} size="sm" />
+              {p.name}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBand lang={lang} title={d.product.ctaTitle.replace('{name}', product.name)} body={d.product.ctaBody} />
+</Base>

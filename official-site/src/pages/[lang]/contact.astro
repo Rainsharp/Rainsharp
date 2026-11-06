@@ -1,0 +1,114 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import { locales, type Locale } from '../../i18n/config';
+import { t } from '../../i18n/ui';
+import { SITE } from '../../data/site';
+
+export function getStaticPaths() {
+  return locales.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Locale;
+const d = t(lang);
+const c = d.contact;
+const details = [
+  { icon: 'mail', label: c.email, value: SITE.email, link: SITE.email && `mailto:${SITE.email}` },
+  { icon: 'phone', label: c.phone, value: SITE.phone, link: SITE.phone && `tel:${SITE.phone.replace(/\s/g, '')}` },
+  { icon: 'chat', label: c.whatsapp, value: SITE.whatsapp, link: SITE.whatsapp && `https://wa.me/${SITE.whatsapp.replace(/\D/g, '')}` },
+  { icon: 'pin', label: c.officeDrc, value: SITE.addressDrc, link: null },
+  { icon: 'pin', label: c.officeChina, value: SITE.addressChina, link: null },
+];
+const field = 'w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-ink-900 placeholder:text-slate-400 focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 focus:outline-none';
+---
+
+<Base lang={lang} title={d.nav.contact} description={c.lead}>
+  <section class="relative overflow-hidden bg-ink-950 text-slate-300">
+    <div class="grid-bg pointer-events-none absolute inset-0"></div>
+    <div class="pointer-events-none absolute -top-40 left-1/4 size-[30rem] rounded-full bg-brand-600/25 blur-3xl"></div>
+    <div class="container-x relative pt-20 pb-40 lg:pt-28">
+      <p class="eyebrow !text-brand-300">{c.eyebrow}</p>
+      <h1 class="mt-4 max-w-3xl text-4xl font-extrabold !text-white sm:text-5xl">{c.title}</h1>
+      <p class="mt-6 max-w-2xl text-lg text-slate-300">{c.lead}</p>
+    </div>
+  </section>
+
+  <section class="container-x relative -mt-28 pb-24">
+    <div class="grid gap-6 lg:grid-cols-[1fr_1.4fr]">
+      <div class="rounded-3xl border border-slate-200 bg-white p-7 shadow-xl shadow-ink-900/5">
+        <h2 class="text-lg font-bold">{c.detailsTitle}</h2>
+        <ul class="mt-6 space-y-5">
+          {
+            details.map((x) => (
+              <li class="flex gap-4">
+                <span class="grid size-10 shrink-0 place-items-center rounded-xl bg-brand-500/10 text-brand-600">
+                  <Icon name={x.icon} />
+                </span>
+                <div class="min-w-0">
+                  <p class="text-xs font-medium text-slate-500">{x.label}</p>
+                  {x.value ? (
+                    x.link ? <a href={x.link} class="font-semibold text-ink-900 hover:text-brand-600">{x.value}</a> : <p class="font-semibold text-ink-900">{x.value}</p>
+                  ) : (
+                    <span class="tbc mt-1">{d.common.tbc}</span>
+                  )}
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+        <div class="mt-8 flex items-center gap-3 rounded-2xl bg-slate-50 p-4 text-sm text-slate-600">
+          <Icon name="globe" class="size-5 text-brand-600" />
+          <span>{SITE.domain}</span>
+        </div>
+      </div>
+
+      <form
+        id="contact-form"
+        class="rounded-3xl border border-slate-200 bg-white p-7 shadow-xl shadow-ink-900/5"
+        method="post"
+        action={SITE.formEndpoint ?? undefined}
+        data-endpoint={SITE.formEndpoint ?? ''}
+      >
+        <h2 class="text-lg font-bold">{c.formTitle}</h2>
+        <div class="mt-6 grid gap-4 sm:grid-cols-2">
+          <label class="grid gap-1.5 text-sm font-medium text-ink-900">{c.name}<input name="name" required autocomplete="name" class={field} /></label>
+          <label class="grid gap-1.5 text-sm font-medium text-ink-900">{c.company}<input name="company" autocomplete="organization" class={field} /></label>
+          <label class="grid gap-1.5 text-sm font-medium text-ink-900">{c.emailField}<input name="email" type="email" required autocomplete="email" class={field} /></label>
+          <label class="grid gap-1.5 text-sm font-medium text-ink-900">{c.phoneField}<input name="phone" type="tel" autocomplete="tel" placeholder="+243 …" class={field} /></label>
+          <label class="grid gap-1.5 text-sm font-medium text-ink-900 sm:col-span-2">
+            {c.topic}
+            <select name="topic" class={field}>{c.topics.map((o) => <option>{o}</option>)}</select>
+          </label>
+          <label class="grid gap-1.5 text-sm font-medium text-ink-900 sm:col-span-2">{c.message}<textarea name="message" rows="5" required class={field}></textarea></label>
+        </div>
+        <input type="hidden" name="lang" value={lang} />
+        <button type="submit" class="btn-primary mt-6 w-full sm:w-auto">{c.submit}<Icon name="arrow" class="size-4" /></button>
+        <p id="form-status" class="mt-4 hidden rounded-xl px-4 py-3 text-sm" role="status"
+          data-not-configured={c.formNotConfigured} data-success={c.success} data-error={c.error}></p>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const status = document.getElementById('form-status');
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!status) return;
+    const endpoint = form.dataset.endpoint;
+    const show = (msg: string, tone: 'warn' | 'ok' | 'err') => {
+      status.textContent = msg;
+      status.className = 'mt-4 rounded-xl px-4 py-3 text-sm ' + ({ warn: 'bg-amber-50 text-amber-800', ok: 'bg-emerald-50 text-emerald-800', err: 'bg-red-50 text-red-800' }[tone]);
+    };
+    if (!endpoint) return show(status.dataset.notConfigured ?? '', 'warn');
+    try {
+      const res = await fetch(endpoint, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+      if (!res.ok) throw new Error(String(res.status));
+      form.reset();
+      show(status.dataset.success ?? '', 'ok');
+    } catch {
+      show(status.dataset.error ?? '', 'err');
+    }
+  });
+</script>
